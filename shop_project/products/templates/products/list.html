@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Список товарів{% endblock %}
+
+{% block content %}
+    <h2 style="color: #ff6b00; margin-bottom: 2rem; border-bottom: 3px solid #ffcc80; padding-bottom: 10px;">
+        📋 Список товарів
+    </h2>
+
+    {% if page_obj %}
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
+            {% for product in page_obj %}
+                <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(255, 140, 0, 0.1); border: 2px solid #ffcc80;">
+                    <h3 style="color: #ff6b00; margin-bottom: 1rem; text-transform: uppercase;">
+                        {{ product.name|upper }}
+                    </h3>
+
+                    <p style="color: #666; margin-bottom: 1rem; line-height: 1.5; font-size: 0.95rem;">
+                        {{ product.description|truncatewords:20 }}
+                    </p>
+
+                    <div style="background: #fff3e0; padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+                        <p style="font-weight: bold; color: #ff6b00; font-size: 1.2rem;">
+                            💰 {{ product.price }} грн
+                        </p>
+                        <p style="color: #888; font-size: 0.9rem;">
+                            📅 {{ product.created_at|date:"d.m.Y" }}
+                        </p>
+                    </div>
+
+                    <a href="{% url 'product_detail' product.pk %}" class="btn" style="width: 100%; text-align: center;">
+                        👁️ Переглянути
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div style="margin-top: 3rem;">
+            {% include 'paginator.html' %}
+        </div>
+    {% else %}
+        <div style="background: #fff3e0; padding: 2rem; border-radius: 15px; text-align: center; border: 2px dashed #ffcc80;">
+            <p style="color: #ff6b00; font-size: 1.2rem;">😔 Товари відсутні</p>
+        </div>
+    {% endif %}
+{% endblock %}
