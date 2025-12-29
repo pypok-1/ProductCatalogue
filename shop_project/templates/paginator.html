@@ -1,0 +1,31 @@
+<div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn" style="background: #ffa726;">
+            ⬅️ Назад
+        </a>
+    {% endif %}
+
+    <div style="display: flex; gap: 0.5rem;">
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span class="btn" style="background: #ff6b00; cursor: default;">
+                    {{ num }}
+                </span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}" class="btn" style="background: #ffcc80; color: #333;">
+                    {{ num }}
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn" style="background: #ffa726;">
+            Вперед ➡️
+        </a>
+    {% endif %}
+</div>
+
+<div style="text-align: center; margin-top: 1rem; color: #ff6b00; font-weight: bold;">
+    Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+</div>
