@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <div style="max-width: 800px; margin: 0 auto;">
+        <a href="{% url 'product_list' %}" class="btn btn-back" style="margin-bottom: 2rem;">
+            ← Назад до списку
+        </a>
+
+        <div style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 8px 25px rgba(255, 140, 0, 0.15); border: 3px solid #ffa726;">
+            <h1 style="color: #ff6b00; margin-bottom: 1.5rem; border-bottom: 3px solid #ffcc80; padding-bottom: 10px;">
+                {{ product.name }}
+            </h1>
+
+            <div style="background: #fff8e1; padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
+                <h3 style="color: #ff8c00; margin-bottom: 1rem;">📝 Опис:</h3>
+                <p style="line-height: 1.8; color: #555; font-size: 1.1rem;">
+                    {{ product.description|linebreaks }}
+                </p>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #ffb74d, #ff9800); padding: 1.5rem; border-radius: 15px; color: white;">
+                <div>
+                    <p style="font-size: 2rem; font-weight: bold;">
+                        💰 {{ product.price }} грн
+                    </p>
+                    <p style="opacity: 0.9;">
+                        📅 Додано: {{ product.created_at|date:"d.m.Y" }}
+                    </p>
+                </div>
+                <div style="background: white; color: #ff6b00; padding: 0.5rem 1rem; border-radius: 10px; font-weight: bold;">
+                    ID: {{ product.pk }}
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="{% url 'product_list' %}" class="btn btn-back">
+                    ← Повернутись
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
